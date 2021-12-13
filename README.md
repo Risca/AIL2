@@ -35,3 +35,5 @@ John Miles (jmiles@pop.net)
 Miles Design, Inc.
 May 26, 2000
 
+## MASM
+THe code is going to be ported to Microsoft MASM 6.1x
