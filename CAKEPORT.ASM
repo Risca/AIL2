@@ -539,23 +539,23 @@ __draw_box:     call bascalc C,si,di,0
                 je __side_char
                 mov al,' '
                 jmp __put_char
-__side_char:    mov al,'║'
+__side_char:    mov al,'º'
                 jmp __put_char
-__top_char:     mov al,'╔'
+__top_char:     mov al,'É'
                 cmp si,box_left
                 je __put_char
-                mov al,'╗'
+                mov al,'»'
                 cmp si,box_right
                 je __put_char
-                mov al,'═'
+                mov al,'Í'
                 jmp __put_char
-__btm_char:     mov al,'╚'
+__btm_char:     mov al,'È'
                 cmp si,box_left
                 je __put_char
-                mov al,'╝'
+                mov al,'¼'
                 cmp si,box_right
                 je __put_char
-                mov al,'═'
+                mov al,'Í'
 __put_char:     mov es:[bx],al
                 mov al,[BColor]
                 shl al,1
