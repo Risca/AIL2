@@ -1,69 +1,69 @@
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   TAIL.C                                                              €€
-//€€                                                                       €€
-//€€   Wrapper module for AIL application testing/debugging                €€
-//€€                                                                       €€
-//€€   V1.00 of 29-Jan-92                                                  €€
-//€€                                                                       €€
-//€€   Project: IBM Audio Interface Library                                €€
-//€€    Author: John Miles                                                 €€
-//€€                                                                       €€
-//€€   C source compatible with Turbo C++ v1.0 or later                    €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   tail.obj: tail.c                                                    €€
-//€€      bcc -ml -c -v tail.c                                             €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   Instructions for use:                                               €€
-//€€                                                                       €€
-//€€   1) Link TAIL.OBJ with the application, as well as the               €€
-//€€      usual AIL.OBJ module.                                            €€
-//€€                                                                       €€
-//€€   2) Replace EVERY call in the ENTIRE application which               €€
-//€€      begins with the prefix "AIL_" with identical calls               €€
-//€€      using the prefix "TAIL_".                                        €€
-//€€                                                                       €€
-//€€      (However, do NOT call any TAIL_ function from a                  €€
-//€€      timer callback function or other interrupt                       €€
-//€€      handler.)                                                        €€
-//€€                                                                       €€
-//€€   3) In every application module, replace all                         €€
-//€€      directives of the form INCLUDE "AIL.H" with                      €€
-//€€      INCLUDE "TAIL.H".                                                €€
-//€€                                                                       €€
-//€€   4) Execute the application, attempting to reproduce                 €€
-//€€      the failure.                                                     €€
-//€€                                                                       €€
-//€€   5) Stop the application normally as soon as the                     €€
-//€€      failure occurs.  The root directory of the                       €€
-//€€      C: drive should contain a file called AILxxx.LOG,                €€
-//€€      which is actually a time-stamped log of all                      €€
-//€€      function calls made to the Audio Interface                       €€
-//€€      Library.  (xxx represents a unique number from 000               €€
-//€€      to 999, depending on how many AILxxx.LOG files                   €€
-//€€      are already in the C: root directory.)                           €€
-//€€                                                                       €€
-//€€   6) Examine the AILxxx.LOG file for evidence of                      €€
-//€€      application-level bugs and inconsistencies.  If                  €€
-//€€      you are unable to find the problem by examining                  €€
-//€€      the parameters and results of your application's                 €€
-//€€      AIL calls, please contact Miles Design at the                    €€
-//€€      number below for further assistance.                             €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   Copyright (C) 1991, 1992 Miles Design, Inc.                         €€
-//€€                                                                       €€
-//€€   Miles Design, Inc.                                                  €€
-//€€   10926 Jollyville #308                                               €€
-//€€   Austin, TX 78759                                                    €€
-//€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   TAIL.C                                                              ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Wrapper module for AIL application testing/debugging                ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   V1.00 of 29-Jan-92                                                  ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Project: IBM Audio Interface Library                                ‚ñà‚ñà
+//‚ñà‚ñà    Author: John Miles                                                 ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   C source compatible with Turbo C++ v1.0 or later                    ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   tail.obj: tail.c                                                    ‚ñà‚ñà
+//‚ñà‚ñà      bcc -ml -c -v tail.c                                             ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Instructions for use:                                               ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   1) Link TAIL.OBJ with the application, as well as the               ‚ñà‚ñà
+//‚ñà‚ñà      usual AIL.OBJ module.                                            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   2) Replace EVERY call in the ENTIRE application which               ‚ñà‚ñà
+//‚ñà‚ñà      begins with the prefix "AIL_" with identical calls               ‚ñà‚ñà
+//‚ñà‚ñà      using the prefix "TAIL_".                                        ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà      (However, do NOT call any TAIL_ function from a                  ‚ñà‚ñà
+//‚ñà‚ñà      timer callback function or other interrupt                       ‚ñà‚ñà
+//‚ñà‚ñà      handler.)                                                        ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   3) In every application module, replace all                         ‚ñà‚ñà
+//‚ñà‚ñà      directives of the form INCLUDE "AIL.H" with                      ‚ñà‚ñà
+//‚ñà‚ñà      INCLUDE "TAIL.H".                                                ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   4) Execute the application, attempting to reproduce                 ‚ñà‚ñà
+//‚ñà‚ñà      the failure.                                                     ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   5) Stop the application normally as soon as the                     ‚ñà‚ñà
+//‚ñà‚ñà      failure occurs.  The root directory of the                       ‚ñà‚ñà
+//‚ñà‚ñà      C: drive should contain a file called AILxxx.LOG,                ‚ñà‚ñà
+//‚ñà‚ñà      which is actually a time-stamped log of all                      ‚ñà‚ñà
+//‚ñà‚ñà      function calls made to the Audio Interface                       ‚ñà‚ñà
+//‚ñà‚ñà      Library.  (xxx represents a unique number from 000               ‚ñà‚ñà
+//‚ñà‚ñà      to 999, depending on how many AILxxx.LOG files                   ‚ñà‚ñà
+//‚ñà‚ñà      are already in the C: root directory.)                           ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   6) Examine the AILxxx.LOG file for evidence of                      ‚ñà‚ñà
+//‚ñà‚ñà      application-level bugs and inconsistencies.  If                  ‚ñà‚ñà
+//‚ñà‚ñà      you are unable to find the problem by examining                  ‚ñà‚ñà
+//‚ñà‚ñà      the parameters and results of your application's                 ‚ñà‚ñà
+//‚ñà‚ñà      AIL calls, please contact Miles Design at the                    ‚ñà‚ñà
+//‚ñà‚ñà      number below for further assistance.                             ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                         ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Miles Design, Inc.                                                  ‚ñà‚ñà
+//‚ñà‚ñà   10926 Jollyville #308                                               ‚ñà‚ñà
+//‚ñà‚ñà   Austin, TX 78759                                                    ‚ñà‚ñà
+//‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -1022,4 +1022,3 @@ void far cdecl TAIL_release_channel(HDRIVER driver, unsigned channel)
 
    fprintf(tscript,"\r\n");
 }
-

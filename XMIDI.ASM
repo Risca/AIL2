@@ -1,42 +1,42 @@
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   XMIDI.ASM                                                            €€
-;€€                                                                        €€
-;€€   IBM Audio Interface Library -- Extended MIDI sound driver shell      €€
-;€€                                                                        €€
-;€€   Version 1.00 of 27-Sep-91: Initial version for AIL V2.0 release      €€
-;€€           1.01 of 25-Nov-91: Handles not consumed by invalid sequences €€
-;€€                              RBRN indexing fixed                       €€
-;€€           1.02 of  8-Dec-91: Callback Trigger values readable          €€
-;€€                              AIL_cancel_callback clears address dword  €€
-;€€           1.03 of 28-Dec-91: Callbacks compatible with Pascal and C    €€
-;€€           1.04 of 31-Jan-92: reset_sequence() clears global sustain    €€
-;€€           1.05 of  2-Feb-92: stop/resume_sequence() validate handles   €€
-;€€                              Flag "seq_started" added to state table   €€
-;€€                              Beat/bar count math precision increased   €€
-;€€           1.06 of 15-Feb-92: Includes YAMAHA.INC instead of YM3812.INC €€
-;€€                              Copyright message header updated          €€
-;€€                              Time denominators < 4 counted correctly   €€
-;€€                              Do shutdown only if initialized           €€
-;€€           1.07 of 15-Mar-92: Beat fraction initialized nonzero         €€
-;€€           1.08 of  3-Apr-92: BRANCH_EXIT equate added                  €€
-;€€           1.09 of  4-Jun-92: PASOPL and MMASTER compatibility          €€
-;€€           1.10 of 14-Oct-92: New time signature function for improved  €€
-;€€                              precision                                 €€
-;€€                                                                        €€
-;€€   Author: John Miles                                                   €€
-;€€   8086 ASM source compatible with Turbo Assembler v2.0 or later        €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   Copyright (C) 1991, 1992 Miles Design, Inc.                          €€
-;€€                                                                        €€
-;€€   Miles Design, Inc.                                                   €€
-;€€   10926 Jollyville #308                                                €€
-;€€   Austin, TX 78759                                                     €€
-;€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   XMIDI.ASM                                                            ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   IBM Audio Interface Library -- Extended MIDI sound driver shell      ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Version 1.00 of 27-Sep-91: Initial version for AIL V2.0 release      ‚ñà‚ñà
+;‚ñà‚ñà           1.01 of 25-Nov-91: Handles not consumed by invalid sequences ‚ñà‚ñà
+;‚ñà‚ñà                              RBRN indexing fixed                       ‚ñà‚ñà
+;‚ñà‚ñà           1.02 of  8-Dec-91: Callback Trigger values readable          ‚ñà‚ñà
+;‚ñà‚ñà                              AIL_cancel_callback clears address dword  ‚ñà‚ñà
+;‚ñà‚ñà           1.03 of 28-Dec-91: Callbacks compatible with Pascal and C    ‚ñà‚ñà
+;‚ñà‚ñà           1.04 of 31-Jan-92: reset_sequence() clears global sustain    ‚ñà‚ñà
+;‚ñà‚ñà           1.05 of  2-Feb-92: stop/resume_sequence() validate handles   ‚ñà‚ñà
+;‚ñà‚ñà                              Flag "seq_started" added to state table   ‚ñà‚ñà
+;‚ñà‚ñà                              Beat/bar count math precision increased   ‚ñà‚ñà
+;‚ñà‚ñà           1.06 of 15-Feb-92: Includes YAMAHA.INC instead of YM3812.INC ‚ñà‚ñà
+;‚ñà‚ñà                              Copyright message header updated          ‚ñà‚ñà
+;‚ñà‚ñà                              Time denominators < 4 counted correctly   ‚ñà‚ñà
+;‚ñà‚ñà                              Do shutdown only if initialized           ‚ñà‚ñà
+;‚ñà‚ñà           1.07 of 15-Mar-92: Beat fraction initialized nonzero         ‚ñà‚ñà
+;‚ñà‚ñà           1.08 of  3-Apr-92: BRANCH_EXIT equate added                  ‚ñà‚ñà
+;‚ñà‚ñà           1.09 of  4-Jun-92: PASOPL and MMASTER compatibility          ‚ñà‚ñà
+;‚ñà‚ñà           1.10 of 14-Oct-92: New time signature function for improved  ‚ñà‚ñà
+;‚ñà‚ñà                              precision                                 ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Author: John Miles                                                   ‚ñà‚ñà
+;‚ñà‚ñà   8086 ASM source compatible with Turbo Assembler v2.0 or later        ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                          ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Miles Design, Inc.                                                   ‚ñà‚ñà
+;‚ñà‚ñà   10926 Jollyville #308                                                ‚ñà‚ñà
+;‚ñà‚ñà   Austin, TX 78759                                                     ‚ñà‚ñà
+;‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
                 MODEL MEDIUM,C          ;Procedures far, data near by default
                 LOCALS __               ;Enable local labels with __ prefix
@@ -2282,4 +2282,3 @@ __exit:         POP_F
 
 ;****************************************************************************
                 END
-

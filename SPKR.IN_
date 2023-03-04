@@ -1,28 +1,28 @@
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   SPKR.INC                                                             €€
-;€€                                                                        €€
-;€€   IBM Audio Interface Library -- XMIDI interpreter for IBM PC 1-voice  €€
-;€€                                  and Tandy 3-voice internal speakers   €€
-;€€                                                                        €€
-;€€   Version 1.00 of 10-Nov-91: Initial version for AIL V2.0 release      €€
-;€€           1.01 of 29-Feb-92: Linear pitch/modulation options added     €€
-;€€                              PC speaker clicks reduced                 €€
-;€€           1.02 of 21-Apr-92: Tandy modulation bug fixed                €€
-;€€                                                                        €€
-;€€   8086 ASM source compatible with Turbo Assembler v2.0 or later        €€
-;€€   Author: John Miles                                                   €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   Copyright (C) 1991, 1992 Miles Design, Inc.                          €€
-;€€                                                                        €€
-;€€   Miles Design, Inc.                                                   €€
-;€€   10926 Jollyville #308                                                €€
-;€€   Austin, TX 78759                                                     €€
-;€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   SPKR.INC                                                             ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   IBM Audio Interface Library -- XMIDI interpreter for IBM PC 1-voice  ‚ñà‚ñà
+;‚ñà‚ñà                                  and Tandy 3-voice internal speakers   ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Version 1.00 of 10-Nov-91: Initial version for AIL V2.0 release      ‚ñà‚ñà
+;‚ñà‚ñà           1.01 of 29-Feb-92: Linear pitch/modulation options added     ‚ñà‚ñà
+;‚ñà‚ñà                              PC speaker clicks reduced                 ‚ñà‚ñà
+;‚ñà‚ñà           1.02 of 21-Apr-92: Tandy modulation bug fixed                ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   8086 ASM source compatible with Turbo Assembler v2.0 or later        ‚ñà‚ñà
+;‚ñà‚ñà   Author: John Miles                                                   ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                          ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Miles Design, Inc.                                                   ‚ñà‚ñà
+;‚ñà‚ñà   10926 Jollyville #308                                                ‚ñà‚ñà
+;‚ñà‚ñà   Austin, TX 78759                                                     ‚ñà‚ñà
+;‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
                 ;
                 ;Driver-specific configuration equates
@@ -591,7 +591,7 @@ __KSLTL:        IFDEF IBMPC
 
                 mov al,MIDI_vol[di]
                 mul MIDI_express[di]
-                shl ax,1                ;(AX*2)/256 = AX/128 ˜ AX/127
+                shl ax,1                ;(AX*2)/256 = AX/128 ¬∏ AX/127
                 mov al,ah
                 cmp al,1
                 sbb al,-1               ;(error = 1/127 units; round up if !0)
@@ -1219,4 +1219,3 @@ printing_:
 	ret
 IntToAsc ENDP
 
-

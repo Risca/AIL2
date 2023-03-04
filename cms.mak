@@ -34,4 +34,3 @@ cms.adv: xmidi.asm spkr.inc ail.inc ail.mac
    exe2bin xmidi.exe cms.adv
    del xmidi.exe
 
-

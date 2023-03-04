@@ -1,35 +1,35 @@
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   AIL.ASM                                                              €€
-;€€                                                                        €€
-;€€   IBM Audio Interface Library -- Application Program Interface module  €€
-;€€                                                                        €€
-;€€   Version 2.00 of 24-Sep-91: Initial V2.X version (derived from V1.02) €€
-;€€           2.01 of 02-Dec-91: Round timer period down to reduce drift   €€
-;€€           2.02 of 22-Dec-91: register_timer() stack usage adjusted     €€
-;€€           2.10 of 07-Mar-92: TAS DIGPAK digital driver support added   €€
-;€€           2.11 of 09-Mar-92: AIL_format_sound_buffer/format_VOC_file() €€
-;€€                              added for Ad Lib Gold & DIGPAK compliance €€
-;€€                              DIGPAK timer-sharing implemented          €€
-;€€           2.12 of 12-Aug-92: Initialize timer_value in register_timer  €€
-;€€           2.13 of 20-Aug-92: Add RTC INT 70H timer option              €€
-;€€           2.14 of 24-Sep-92: Init DP_handle in register_driver()       €€
-;€€                              Reset timer_value of first reg'd timer    €€
-;€€                                                                        €€
-;€€   8086 ASM source compatible with Turbo Assembler v2.0 or later        €€
-;€€   C function prototypes in AIL.H                                       €€
-;€€   Author: John Miles                                                   €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   Copyright (C) 1991, 1992 Miles Design, Inc.                          €€
-;€€                                                                        €€
-;€€   Miles Design, Inc.                                                   €€
-;€€   10926 Jollyville #308                                                €€
-;€€   Austin, TX 78759                                                     €€
-;€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   AIL.ASM                                                              ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   IBM Audio Interface Library -- Application Program Interface module  ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Version 2.00 of 24-Sep-91: Initial V2.X version (derived from V1.02) ‚ñà‚ñà
+;‚ñà‚ñà           2.01 of 02-Dec-91: Round timer period down to reduce drift   ‚ñà‚ñà
+;‚ñà‚ñà           2.02 of 22-Dec-91: register_timer() stack usage adjusted     ‚ñà‚ñà
+;‚ñà‚ñà           2.10 of 07-Mar-92: TAS DIGPAK digital driver support added   ‚ñà‚ñà
+;‚ñà‚ñà           2.11 of 09-Mar-92: AIL_format_sound_buffer/format_VOC_file() ‚ñà‚ñà
+;‚ñà‚ñà                              added for Ad Lib Gold & DIGPAK compliance ‚ñà‚ñà
+;‚ñà‚ñà                              DIGPAK timer-sharing implemented          ‚ñà‚ñà
+;‚ñà‚ñà           2.12 of 12-Aug-92: Initialize timer_value in register_timer  ‚ñà‚ñà
+;‚ñà‚ñà           2.13 of 20-Aug-92: Add RTC INT 70H timer option              ‚ñà‚ñà
+;‚ñà‚ñà           2.14 of 24-Sep-92: Init DP_handle in register_driver()       ‚ñà‚ñà
+;‚ñà‚ñà                              Reset timer_value of first reg'd timer    ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   8086 ASM source compatible with Turbo Assembler v2.0 or later        ‚ñà‚ñà
+;‚ñà‚ñà   C function prototypes in AIL.H                                       ‚ñà‚ñà
+;‚ñà‚ñà   Author: John Miles                                                   ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                          ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Miles Design, Inc.                                                   ‚ñà‚ñà
+;‚ñà‚ñà   10926 Jollyville #308                                                ‚ñà‚ñà
+;‚ñà‚ñà   Austin, TX 78759                                                     ‚ñà‚ñà
+;‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
                 MODEL MEDIUM,C          ;Procedures far, data near by default
                 LOCALS __               ;Enable local labels with __ prefix
@@ -1120,7 +1120,7 @@ AIL_set_timer_divisor PROC Timer,PIT
 __nonzero:      mov ax,10000            ;convert to microseconds
                 mov bx,11932
                 mul [PIT]
-                div bx                  ;(accurate to Ò.01%)
+                div bx                  ;(accurate to ¬±.01%)
                 mov dx,0                ;(fixes bug in v1.00 release)
 
 __set_AXDX:     call AIL_set_timer_period C,[Timer],ax,dx
@@ -2695,4 +2695,3 @@ DP_get_VOC_status PROC H
 
 ;*****************************************************************************
                 END
-

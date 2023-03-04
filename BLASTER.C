@@ -1,61 +1,61 @@
-//ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  BLASTER.C                                                            ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  Demonstrates a technique for determining the address and type        ÛÛ
-//ÛÛ  parameters of a Sound Blaster Pro adapter.  Relies on the BLASTER    ÛÛ
-//ÛÛ  environment variable, which is normally inserted into the end        ÛÛ
-//ÛÛ  user's AUTOEXEC.BAT file by the Sound Blaster installation program.  ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ-----------------------------------------------------------------------ÛÛ
-//ÛÛ  Example usage:                                                       ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  C:\>SET BLASTER=A220 I7 D1 T4                                        ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  C:\>blaster                                                          ÛÛ
-//ÛÛ    Sound Blaster type: Sound Blaster Pro (Yamaha YMF262/OPL3 version) ÛÛ
-//ÛÛ           I/O address: 220H                                           ÛÛ
-//ÛÛ                   IRQ: 7                                              ÛÛ
-//ÛÛ                   DMA: 1                                              ÛÛ
-//ÛÛ  Digital sound driver: SBPDIG.ADV                                     ÛÛ
-//ÛÛ       FM sound driver: SBP2FM.ADV                                     ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  C:\>                                                                 ÛÛ
-//ÛÛ-----------------------------------------------------------------------ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  V1.00 of 20-Apr-92                                                   ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  Project: IBM Audio Interface Library                                 ÛÛ
-//ÛÛ   Author: John Miles                                                  ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  C source compatible with Turbo C++ v1.0 or later                     ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  blaster.obj: blaster.c ail.h                                         ÛÛ
-//ÛÛ     bcc -ml -c -v blaster.c                                           ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  blaster.exe: blaster.obj ail.obj                                     ÛÛ
-//ÛÛ     tlink @blaster.lls                                                ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  Contents of BLASTER.LLS:                                             ÛÛ
-//ÛÛ    /c /v /x +                                                         ÛÛ
-//ÛÛ    \bc\lib\c0l.obj +                                                  ÛÛ
-//ÛÛ    blaster ail, +                                                     ÛÛ
-//ÛÛ    blaster.exe, +                                                     ÛÛ
-//ÛÛ    blaster.map, +                                                     ÛÛ
-//ÛÛ    \bc\lib\cl.lib                                                     ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  Copyright (C) 1992 Miles Design, Inc.                                ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛ  Miles Design, Inc.                                                   ÛÛ
-//ÛÛ  10926 Jollyville #308                                                ÛÛ
-//ÛÛ  Austin, TX 78759                                                     ÛÛ
-//ÛÛ  (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             ÛÛ
-//ÛÛ                                                                       ÛÛ
-//ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+//â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  BLASTER.C                                                            â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  Demonstrates a technique for determining the address and type        â–ˆâ–ˆ
+//â–ˆâ–ˆ  parameters of a Sound Blaster Pro adapter.  Relies on the BLASTER    â–ˆâ–ˆ
+//â–ˆâ–ˆ  environment variable, which is normally inserted into the end        â–ˆâ–ˆ
+//â–ˆâ–ˆ  user's AUTOEXEC.BAT file by the Sound Blaster installation program.  â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ-----------------------------------------------------------------------â–ˆâ–ˆ
+//â–ˆâ–ˆ  Example usage:                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  C:\>SET BLASTER=A220 I7 D1 T4                                        â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  C:\>blaster                                                          â–ˆâ–ˆ
+//â–ˆâ–ˆ    Sound Blaster type: Sound Blaster Pro (Yamaha YMF262/OPL3 version) â–ˆâ–ˆ
+//â–ˆâ–ˆ           I/O address: 220H                                           â–ˆâ–ˆ
+//â–ˆâ–ˆ                   IRQ: 7                                              â–ˆâ–ˆ
+//â–ˆâ–ˆ                   DMA: 1                                              â–ˆâ–ˆ
+//â–ˆâ–ˆ  Digital sound driver: SBPDIG.ADV                                     â–ˆâ–ˆ
+//â–ˆâ–ˆ       FM sound driver: SBP2FM.ADV                                     â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  C:\>                                                                 â–ˆâ–ˆ
+//â–ˆâ–ˆ-----------------------------------------------------------------------â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  V1.00 of 20-Apr-92                                                   â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  Project: IBM Audio Interface Library                                 â–ˆâ–ˆ
+//â–ˆâ–ˆ   Author: John Miles                                                  â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  C source compatible with Turbo C++ v1.0 or later                     â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  blaster.obj: blaster.c ail.h                                         â–ˆâ–ˆ
+//â–ˆâ–ˆ     bcc -ml -c -v blaster.c                                           â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  blaster.exe: blaster.obj ail.obj                                     â–ˆâ–ˆ
+//â–ˆâ–ˆ     tlink @blaster.lls                                                â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  Contents of BLASTER.LLS:                                             â–ˆâ–ˆ
+//â–ˆâ–ˆ    /c /v /x +                                                         â–ˆâ–ˆ
+//â–ˆâ–ˆ    \bc\lib\c0l.obj +                                                  â–ˆâ–ˆ
+//â–ˆâ–ˆ    blaster ail, +                                                     â–ˆâ–ˆ
+//â–ˆâ–ˆ    blaster.exe, +                                                     â–ˆâ–ˆ
+//â–ˆâ–ˆ    blaster.map, +                                                     â–ˆâ–ˆ
+//â–ˆâ–ˆ    \bc\lib\cl.lib                                                     â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  Copyright (C) 1992 Miles Design, Inc.                                â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆ  Miles Design, Inc.                                                   â–ˆâ–ˆ
+//â–ˆâ–ˆ  10926 Jollyville #308                                                â–ˆâ–ˆ
+//â–ˆâ–ˆ  Austin, TX 78759                                                     â–ˆâ–ˆ
+//â–ˆâ–ˆ  (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             â–ˆâ–ˆ
+//â–ˆâ–ˆ                                                                       â–ˆâ–ˆ
+//â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
 
 #include <ctype.h>
 #include <string.h>
@@ -205,4 +205,3 @@ void main(void)
    printf("     FM sound driver: %s\n",FM_drvr);
 }
 
-

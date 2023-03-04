@@ -257,4 +257,3 @@ spkrdemo.xmi: spkrdemo.mid midiform.exe
 sample.ad: sample.cat sample.bnk glib.exe
    glib sample.cat
    copy sample.ad sample.opl
-

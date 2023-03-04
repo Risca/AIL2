@@ -1,49 +1,49 @@
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   MIDILOG.C                                                           €€
-//€€                                                                       €€
-//€€   MIDI file event librarian                                           €€
-//€€                                                                       €€
-//€€   Usage: MIDILOG infile outfile [logfile]                             €€
-//€€                                                                       €€
-//€€   Provides for the translation of sequencer-accessible MIDI events    €€
-//€€   into application-specific events.  Also strips any non-standard     €€
-//€€   headers from MIDI files.                                            €€
-//€€                                                                       €€
-//€€   Version: 1.00 of 04-Jun-91 -- Initial version                       €€
-//€€            1.01 of 30-Sep-91 -- MT-32 checksum bug fixed              €€
-//€€                                                                       €€
-//€€   Project: IBM Audio Interface Library                                €€
-//€€    Author: John Miles                                                 €€
-//€€                                                                       €€
-//€€   C source compatible with Turbo C++ v1.0 or later                    €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   midilog.obj: midilog.c gen.h                                        €€
-//€€      bcc -ml -c -v midilog.c                                          €€
-//€€                                                                       €€
-//€€   midilog.exe: midilog.obj gen.lib                                    €€
-//€€      tlink @midilog.lls                                               €€
-//€€                                                                       €€
-//€€   Contents of MIDILOG.LLS:                                            €€
-//€€     /c /v /x +                                                        €€
-//€€     \bc\lib\c0l.obj +                                                 €€
-//€€     midilog, +                                                        €€
-//€€     midilog.exe, +                                                    €€
-//€€     midilog.map, +                                                    €€
-//€€     \bc\lib\cl.lib gen.lib                                            €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   Copyright (C) 1991, 1992 Miles Design, Inc.                         €€
-//€€                                                                       €€
-//€€   Miles Design, Inc.                                                  €€
-//€€   10926 Jollyville #308                                               €€
-//€€   Austin, TX 78759                                                    €€
-//€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   MIDILOG.C                                                           ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   MIDI file event librarian                                           ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Usage: MIDILOG infile outfile [logfile]                             ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Provides for the translation of sequencer-accessible MIDI events    ‚ñà‚ñà
+//‚ñà‚ñà   into application-specific events.  Also strips any non-standard     ‚ñà‚ñà
+//‚ñà‚ñà   headers from MIDI files.                                            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Version: 1.00 of 04-Jun-91 -- Initial version                       ‚ñà‚ñà
+//‚ñà‚ñà            1.01 of 30-Sep-91 -- MT-32 checksum bug fixed              ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Project: IBM Audio Interface Library                                ‚ñà‚ñà
+//‚ñà‚ñà    Author: John Miles                                                 ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   C source compatible with Turbo C++ v1.0 or later                    ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   midilog.obj: midilog.c gen.h                                        ‚ñà‚ñà
+//‚ñà‚ñà      bcc -ml -c -v midilog.c                                          ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   midilog.exe: midilog.obj gen.lib                                    ‚ñà‚ñà
+//‚ñà‚ñà      tlink @midilog.lls                                               ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Contents of MIDILOG.LLS:                                            ‚ñà‚ñà
+//‚ñà‚ñà     /c /v /x +                                                        ‚ñà‚ñà
+//‚ñà‚ñà     \bc\lib\c0l.obj +                                                 ‚ñà‚ñà
+//‚ñà‚ñà     midilog, +                                                        ‚ñà‚ñà
+//‚ñà‚ñà     midilog.exe, +                                                    ‚ñà‚ñà
+//‚ñà‚ñà     midilog.map, +                                                    ‚ñà‚ñà
+//‚ñà‚ñà     \bc\lib\cl.lib gen.lib                                            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                         ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Miles Design, Inc.                                                  ‚ñà‚ñà
+//‚ñà‚ñà   10926 Jollyville #308                                               ‚ñà‚ñà
+//‚ñà‚ñà   Austin, TX 78759                                                    ‚ñà‚ñà
+//‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
 #pragma warn -par
 #pragma warn -aus
@@ -821,4 +821,3 @@ void main(int argc, char *argv[])
 }
 
 
-

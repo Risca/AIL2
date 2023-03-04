@@ -1,33 +1,33 @@
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   CAKEPORT.ASM                                                         €€
-;€€                                                                        €€
-;€€   IBM Audio Interface Library                                          €€
-;€€                                                                        €€
-;€€   Audio Interface Library driver for Cakewalk Professional version 4.0 €€
-;€€                                                                        €€
-;€€   Version 1.0 of 08-Aug-91: Initial version                            €€
-;€€           2.0 of 02-Sep-91: MPU-401 MIDI receive capability added      €€
-;€€                             MIDI.DRV support removed                   €€
-;€€                             Dialog box support added                   €€
-;€€                             Timer subclass code added                  €€
-;€€          2.01 of 10-Dec-91: Timer subclass code fixed for .WRK loading €€
-;€€          2.02 of 20-Apr-92: serve_driver() enabled for all drivers     €€
-;€€          2.03 of 17-Aug-92: Driver-specific volume scaling added       €€
-;€€                                                                        €€
-;€€   Author: John Miles                                                   €€
-;€€   8086 ASM source compatible with Turbo Assembler v2.0 or later        €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   Copyright (C) 1991, 1992 Miles Design, Inc.                          €€
-;€€                                                                        €€
-;€€   Miles Design, Inc.                                                   €€
-;€€   10926 Jollyville #308                                                €€
-;€€   Austin, TX 78759                                                     €€
-;€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   CAKEPORT.ASM                                                         ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   IBM Audio Interface Library                                          ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Audio Interface Library driver for Cakewalk Professional version 4.0 ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Version 1.0 of 08-Aug-91: Initial version                            ‚ñà‚ñà
+;‚ñà‚ñà           2.0 of 02-Sep-91: MPU-401 MIDI receive capability added      ‚ñà‚ñà
+;‚ñà‚ñà                             MIDI.DRV support removed                   ‚ñà‚ñà
+;‚ñà‚ñà                             Dialog box support added                   ‚ñà‚ñà
+;‚ñà‚ñà                             Timer subclass code added                  ‚ñà‚ñà
+;‚ñà‚ñà          2.01 of 10-Dec-91: Timer subclass code fixed for .WRK loading ‚ñà‚ñà
+;‚ñà‚ñà          2.02 of 20-Apr-92: serve_driver() enabled for all drivers     ‚ñà‚ñà
+;‚ñà‚ñà          2.03 of 17-Aug-92: Driver-specific volume scaling added       ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Author: John Miles                                                   ‚ñà‚ñà
+;‚ñà‚ñà   8086 ASM source compatible with Turbo Assembler v2.0 or later        ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                          ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Miles Design, Inc.                                                   ‚ñà‚ñà
+;‚ñà‚ñà   10926 Jollyville #308                                                ‚ñà‚ñà
+;‚ñà‚ñà   Austin, TX 78759                                                     ‚ñà‚ñà
+;‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
                 MODEL MEDIUM,C          ;Procedures far, data near by default
                 LOCALS __               ;Enable local labels with __ prefix
@@ -539,23 +539,23 @@ __draw_box:     call bascalc C,si,di,0
                 je __side_char
                 mov al,' '
                 jmp __put_char
-__side_char:    mov al,'∫'
+__side_char:    mov al,'‚ïë'
                 jmp __put_char
-__top_char:     mov al,'…'
+__top_char:     mov al,'‚ïî'
                 cmp si,box_left
                 je __put_char
-                mov al,'ª'
+                mov al,'‚ïó'
                 cmp si,box_right
                 je __put_char
-                mov al,'Õ'
+                mov al,'‚ïê'
                 jmp __put_char
-__btm_char:     mov al,'»'
+__btm_char:     mov al,'‚ïö'
                 cmp si,box_left
                 je __put_char
-                mov al,'º'
+                mov al,'‚ïù'
                 cmp si,box_right
                 je __put_char
-                mov al,'Õ'
+                mov al,'‚ïê'
 __put_char:     mov es:[bx],al
                 mov al,[BColor]
                 shl al,1
@@ -1639,4 +1639,3 @@ __chk_MIDI:     les bx,[bp+06]
 
 ;*****************************************************************************
                 END
-

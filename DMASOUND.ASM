@@ -1,51 +1,51 @@
-;ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛ   DMASOUND.ASM                                                         ÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛ   IBM Audio Interface Library                                          ÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛ   Digital sound driver/emulator for Sound Blaster-type audio devices   ÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛ   Version 2.00 of 09-Oct-91: Initial V2.0 version, derived from V1.05  ÛÛ
-;ÛÛ           2.01 of 21-Nov-91: Autodetects Thunderboard as Sound Blaster ÛÛ
-;ÛÛ                              Dual-buffer playback flag checks modified ÛÛ
-;ÛÛ           2.02 of 14-Dec-91: PAS DMA timer pauses/resumes correctly    ÛÛ
-;ÛÛ           2.03 of 18-Dec-91: Standard SB speaker control fixed         ÛÛ
-;ÛÛ           2.04 of 13-Jan-92: Stereo .VOC file support added            ÛÛ
-;ÛÛ           2.05 of 20-Jan-92: I/O timeout w/beep added                  ÛÛ
-;ÛÛ                              Sample rate high byte always cleared      ÛÛ
-;ÛÛ           2.06 of 18-Feb-92: IRQ delay during halt_DMA                 ÛÛ
-;ÛÛ                              sysex_wait() calls replace loops          ÛÛ
-;ÛÛ                              Send >1 bytes during detection            ÛÛ
-;ÛÛ                              Do shutdown only if initialized           ÛÛ
-;ÛÛ           2.07 of  2-Apr-92: Set valid sample rate during detection    ÛÛ
-;ÛÛ           2.10 of  4-Apr-92: Ad Lib Gold support added                 ÛÛ
-;ÛÛ                              AIL_format_VOC_file/_sound_buffer() added ÛÛ
-;ÛÛ                              DMA word count checked in IRQ handlers    ÛÛ
-;ÛÛ           2.11 of 13-May-92: IRQ delay skipped if .VOC playback ended  ÛÛ
-;ÛÛ           2.12 of 29-May-92: PAS default volume reduced                ÛÛ
-;ÛÛ           2.13 of 29-Jun-92: PAS +/16 compatibility issues resolved    ÛÛ
-;ÛÛ                              ALG panning disabled in mono mode         ÛÛ
-;ÛÛ                              SBLASTER silence-packing problems fixed   ÛÛ
-;ÛÛ           2.14 of 17-Aug-92: CHECK_DMAC option added                   ÛÛ
-;ÛÛ           2.15 of 15-Sep-92: WAIT_FALSE_IRQ option added               ÛÛ
-;ÛÛ           2.16 of 14-Nov-92: Alternative fix for unwanted SBlaster     ÛÛ
-;ÛÛ                              IRQs implemented                          ÛÛ
-;ÛÛ                              DMA terminal count of 0 accepted          ÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛ   Author: John Miles                                                   ÛÛ
-;ÛÛ   8086 ASM source compatible with Turbo Assembler v2.0 or later        ÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛ    Copyright (C) 1991, 1992 Miles Design, Inc.                         ÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛ    Miles Design, Inc.                                                  ÛÛ
-;ÛÛ    10926 Jollyville #308                                               ÛÛ
-;ÛÛ    Austin, TX 78759                                                    ÛÛ
-;ÛÛ    (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            ÛÛ
-;ÛÛ                                                                        ÛÛ
-;ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+;â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆ   DMASOUND.ASM                                                         â–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆ   IBM Audio Interface Library                                          â–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆ   Digital sound driver/emulator for Sound Blaster-type audio devices   â–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆ   Version 2.00 of 09-Oct-91: Initial V2.0 version, derived from V1.05  â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.01 of 21-Nov-91: Autodetects Thunderboard as Sound Blaster â–ˆâ–ˆ
+;â–ˆâ–ˆ                              Dual-buffer playback flag checks modified â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.02 of 14-Dec-91: PAS DMA timer pauses/resumes correctly    â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.03 of 18-Dec-91: Standard SB speaker control fixed         â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.04 of 13-Jan-92: Stereo .VOC file support added            â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.05 of 20-Jan-92: I/O timeout w/beep added                  â–ˆâ–ˆ
+;â–ˆâ–ˆ                              Sample rate high byte always cleared      â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.06 of 18-Feb-92: IRQ delay during halt_DMA                 â–ˆâ–ˆ
+;â–ˆâ–ˆ                              sysex_wait() calls replace loops          â–ˆâ–ˆ
+;â–ˆâ–ˆ                              Send >1 bytes during detection            â–ˆâ–ˆ
+;â–ˆâ–ˆ                              Do shutdown only if initialized           â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.07 of  2-Apr-92: Set valid sample rate during detection    â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.10 of  4-Apr-92: Ad Lib Gold support added                 â–ˆâ–ˆ
+;â–ˆâ–ˆ                              AIL_format_VOC_file/_sound_buffer() added â–ˆâ–ˆ
+;â–ˆâ–ˆ                              DMA word count checked in IRQ handlers    â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.11 of 13-May-92: IRQ delay skipped if .VOC playback ended  â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.12 of 29-May-92: PAS default volume reduced                â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.13 of 29-Jun-92: PAS +/16 compatibility issues resolved    â–ˆâ–ˆ
+;â–ˆâ–ˆ                              ALG panning disabled in mono mode         â–ˆâ–ˆ
+;â–ˆâ–ˆ                              SBLASTER silence-packing problems fixed   â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.14 of 17-Aug-92: CHECK_DMAC option added                   â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.15 of 15-Sep-92: WAIT_FALSE_IRQ option added               â–ˆâ–ˆ
+;â–ˆâ–ˆ           2.16 of 14-Nov-92: Alternative fix for unwanted SBlaster     â–ˆâ–ˆ
+;â–ˆâ–ˆ                              IRQs implemented                          â–ˆâ–ˆ
+;â–ˆâ–ˆ                              DMA terminal count of 0 accepted          â–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆ   Author: John Miles                                                   â–ˆâ–ˆ
+;â–ˆâ–ˆ   8086 ASM source compatible with Turbo Assembler v2.0 or later        â–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆ    Copyright (C) 1991, 1992 Miles Design, Inc.                         â–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆ    Miles Design, Inc.                                                  â–ˆâ–ˆ
+;â–ˆâ–ˆ    10926 Jollyville #308                                               â–ˆâ–ˆ
+;â–ˆâ–ˆ    Austin, TX 78759                                                    â–ˆâ–ˆ
+;â–ˆâ–ˆ    (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            â–ˆâ–ˆ
+;â–ˆâ–ˆ                                                                        â–ˆâ–ˆ
+;â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ
 
                 MODEL MEDIUM,C          ;Procedures far, data near by default
                 LOCALS __               ;Enable local labels with __ prefix
@@ -2768,4 +2768,3 @@ get_VOC_status  PROC H
 
 ;****************************************************************************
           	END
-

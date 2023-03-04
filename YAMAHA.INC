@@ -1,29 +1,29 @@
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   YAMAHA.INC                                                           €€
-;€€                                                                        €€
-;€€   IBM Audio Interface Library XMIDI interpreter for Ad Lib, etc.       €€
-;€€   including YMF262 (aka OPL3) 2-and-4-operator FM support              €€
-;€€                                                                        €€
-;€€   Version 1.00 of 15-Feb-92: Init version (replaces YM3812.INC v1.04)  €€
-;€€           1.01 of 20-Jun-92: Pro Audio Spectrum Plus/16 support added  €€
-;€€                              Remove REPTs to circumvent TASM bug       €€
-;€€                              Reset PAS to Ad Lib mode on shutdown      €€
-;€€           1.02 of 13-Nov-92: Detect OPL3 at 2x8, not 2x0               €€
-;€€                                                                        €€
-;€€   8086 ASM source compatible with Turbo Assembler v2.0 or later        €€
-;€€   Author: John Miles                                                   €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-;€€                                                                        €€
-;€€   Copyright (C) 1991, 1992 Miles Design, Inc.                          €€
-;€€                                                                        €€
-;€€   Miles Design, Inc.                                                   €€
-;€€   10926 Jollyville #308                                                €€
-;€€   Austin, TX 78759                                                     €€
-;€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             €€
-;€€                                                                        €€
-;€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   YAMAHA.INC                                                           ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   IBM Audio Interface Library XMIDI interpreter for Ad Lib, etc.       ‚ñà‚ñà
+;‚ñà‚ñà   including YMF262 (aka OPL3) 2-and-4-operator FM support              ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Version 1.00 of 15-Feb-92: Init version (replaces YM3812.INC v1.04)  ‚ñà‚ñà
+;‚ñà‚ñà           1.01 of 20-Jun-92: Pro Audio Spectrum Plus/16 support added  ‚ñà‚ñà
+;‚ñà‚ñà                              Remove REPTs to circumvent TASM bug       ‚ñà‚ñà
+;‚ñà‚ñà                              Reset PAS to Ad Lib mode on shutdown      ‚ñà‚ñà
+;‚ñà‚ñà           1.02 of 13-Nov-92: Detect OPL3 at 2x8, not 2x0               ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   8086 ASM source compatible with Turbo Assembler v2.0 or later        ‚ñà‚ñà
+;‚ñà‚ñà   Author: John Miles                                                   ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                          ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà   Miles Design, Inc.                                                   ‚ñà‚ñà
+;‚ñà‚ñà   10926 Jollyville #308                                                ‚ñà‚ñà
+;‚ñà‚ñà   Austin, TX 78759                                                     ‚ñà‚ñà
+;‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990             ‚ñà‚ñà
+;‚ñà‚ñà                                                                        ‚ñà‚ñà
+;‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
                 ;
                 ;Driver-specific configuration equates
@@ -1490,7 +1490,7 @@ update_voice    PROC Slot               ;Update hardware regs for slot
 
                 mov al,MIDI_vol[di]
                 mul MIDI_express[di]
-                shl ax,1                ;(AX*2)/256 = AX/128 ˜ AX/127
+                shl ax,1                ;(AX*2)/256 = AX/128 ¬∏ AX/127
                 mov al,ah
                 cmp al,1
                 sbb al,-1               ;(error = 1/127 units; round up if !0)
@@ -1507,7 +1507,7 @@ update_voice    PROC Slot               ;Update hardware regs for slot
                 mov bl,MIDI_pan[di]
                 mov al,pan_graph[bx]
                 mul cl                  ;calculate left-channel volume
-                shl ax,1                ;(AX*2)/256 = AX/128 ˜ AX/127
+                shl ax,1                ;(AX*2)/256 = AX/128 ¬∏ AX/127
                 mov al,ah
                 cmp al,1
                 sbb al,-1               ;(error = 1/127 units; round up if !0)
@@ -1516,7 +1516,7 @@ update_voice    PROC Slot               ;Update hardware regs for slot
                 neg bx
                 mov al,pan_graph[bx]
                 mul cl                  ;calculate right-channel volume
-                shl ax,1                ;(AX*2)/256 = AX/128 ˜ AX/127
+                shl ax,1                ;(AX*2)/256 = AX/128 ¬∏ AX/127
                 mov al,ah
                 cmp al,1
                 sbb al,-1               ;(error = 1/127 units; round up if !0)
@@ -2638,4 +2638,3 @@ write_display   PROC H,String:FAR PTR   ;Write string to display (unless NULL)
                 ENDP
 
 
-

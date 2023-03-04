@@ -1,48 +1,48 @@
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   MIXDEMO.C                                                           €€
-//€€                                                                       €€
-//€€   XMIDI multiple-sequence sound effects demo                          €€
-//€€                                                                       €€
-//€€   V1.00 of 09-Nov-91                                                  €€
-//€€   V1.01 of 12-Dec-91: New timbre request structure                    €€
-//€€   V1.02 of  3-Dec-92: BC 3.0 const declarations fixed                 €€
-//€€   V1.03 of  4-Jul-92: Check GTL handle before closing                 €€
-//€€                                                                       €€
-//€€   Project: IBM Audio Interface Library                                €€
-//€€    Author: John Miles                                                 €€
-//€€                                                                       €€
-//€€   C source compatible with Turbo C++ v1.0 or later                    €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   demo.xmi: backgnd.mid shanty.mid choral.mid                         €€
-//€€     midiform demo.xmi backgnd.mid shanty.mid choral.mid               €€
-//€€                                                                       €€
-//€€   mixdemo.obj: mixdemo.c gen.h ail.h                                  €€
-//€€     bcc -ml -c -v mixdemo.c                                           €€
-//€€                                                                       €€
-//€€   mixdemo.exe: mixdemo.obj gen.lib ail.obj                            €€
-//€€     tlink @mixdemo.lls                                                €€
-//€€                                                                       €€
-//€€   Contents of MIXDEMO.LLS:                                            €€
-//€€     /c /v /x +                                                        €€
-//€€     \bc\lib\c0l.obj +                                                 €€
-//€€     mixdemo ail, +                                                    €€
-//€€     mixdemo.exe, +                                                    €€
-//€€     mixdemo.map, +                                                    €€
-//€€     \bc\lib\cl.lib gen.lib                                            €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   Copyright (C) 1991, 1992 Miles Design, Inc.                         €€
-//€€                                                                       €€
-//€€   Miles Design, Inc.                                                  €€
-//€€   10926 Jollyville #308                                               €€
-//€€   Austin, TX 78759                                                    €€
-//€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   MIXDEMO.C                                                           ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   XMIDI multiple-sequence sound effects demo                          ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   V1.00 of 09-Nov-91                                                  ‚ñà‚ñà
+//‚ñà‚ñà   V1.01 of 12-Dec-91: New timbre request structure                    ‚ñà‚ñà
+//‚ñà‚ñà   V1.02 of  3-Dec-92: BC 3.0 const declarations fixed                 ‚ñà‚ñà
+//‚ñà‚ñà   V1.03 of  4-Jul-92: Check GTL handle before closing                 ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Project: IBM Audio Interface Library                                ‚ñà‚ñà
+//‚ñà‚ñà    Author: John Miles                                                 ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   C source compatible with Turbo C++ v1.0 or later                    ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   demo.xmi: backgnd.mid shanty.mid choral.mid                         ‚ñà‚ñà
+//‚ñà‚ñà     midiform demo.xmi backgnd.mid shanty.mid choral.mid               ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   mixdemo.obj: mixdemo.c gen.h ail.h                                  ‚ñà‚ñà
+//‚ñà‚ñà     bcc -ml -c -v mixdemo.c                                           ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   mixdemo.exe: mixdemo.obj gen.lib ail.obj                            ‚ñà‚ñà
+//‚ñà‚ñà     tlink @mixdemo.lls                                                ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Contents of MIXDEMO.LLS:                                            ‚ñà‚ñà
+//‚ñà‚ñà     /c /v /x +                                                        ‚ñà‚ñà
+//‚ñà‚ñà     \bc\lib\c0l.obj +                                                 ‚ñà‚ñà
+//‚ñà‚ñà     mixdemo ail, +                                                    ‚ñà‚ñà
+//‚ñà‚ñà     mixdemo.exe, +                                                    ‚ñà‚ñà
+//‚ñà‚ñà     mixdemo.map, +                                                    ‚ñà‚ñà
+//‚ñà‚ñà     \bc\lib\cl.lib gen.lib                                            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                         ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Miles Design, Inc.                                                  ‚ñà‚ñà
+//‚ñà‚ñà   10926 Jollyville #308                                               ‚ñà‚ñà
+//‚ñà‚ñà   Austin, TX 78759                                                    ‚ñà‚ñà
+//‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
 #include <conio.h>
 #include <stdio.h>
@@ -295,4 +295,3 @@ void main(int argc, char *argv[])
    printf("MIXDEMO stopped.\n");
    AIL_shutdown("MIXDEMO stopped.");
 }
-

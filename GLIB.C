@@ -1,52 +1,52 @@
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   GLIB.C                                                              €€
-//€€                                                                       €€
-//€€   Global Timbre Librarian                                             €€
-//€€                                                                       €€
-//€€   Usage: GLIB catfile                                                 €€
-//€€                                                                       €€
-//€€   Creates standard Audio Interface Library instrument bankfiles which €€
-//€€   contain instruments assigned to the Patch Bank Select/Patch Change  €€
-//€€   values embedded in XMIDI data files                                 €€
-//€€                                                                       €€
-//€€   Version: 1.00 of 05-Oct-91 -- Initial version                       €€
-//€€            1.01 of 03-Feb-92 -- Moved header member out of GTL_class  €€
-//€€            1.02 of 15-Feb-92 -- Ad Lib Gold OPL3 bankfiles supported  €€
-//€€            1.03 of 25-May-92 -- Fixed GTL_write_MTB() mem alloc bug   €€
-//€€                                 Added #include <io.h>                 €€
-//€€                                                                       €€
-//€€   Project: IBM Audio Interface Library                                €€
-//€€    Author: John Miles                                                 €€
-//€€                                                                       €€
-//€€   C source compatible with Turbo C++ v1.0 or later, large model       €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   glib.obj: glib.c gen.h                                              €€
-//€€      bcc -ml -c -v glib.c                                             €€
-//€€                                                                       €€
-//€€   glib.exe: glib.obj gen.lib                                          €€
-//€€      tlink @glib.lls                                                  €€
-//€€                                                                       €€
-//€€   Contents of GLIB.LLS:                                               €€
-//€€     /c /v /x +                                                        €€
-//€€     \bc\lib\c0l.obj +                                                 €€
-//€€     glib, +                                                           €€
-//€€     glib.exe, +                                                       €€
-//€€     glib.map, +                                                       €€
-//€€     \bc\lib\cl.lib gen.lib                                            €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
-//€€                                                                       €€
-//€€   Copyright (C) 1991, 1992 Miles Design, Inc.                         €€
-//€€                                                                       €€
-//€€   Miles Design, Inc.                                                  €€
-//€€   10926 Jollyville #308                                               €€
-//€€   Austin, TX 78759                                                    €€
-//€€   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            €€
-//€€                                                                       €€
-//€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€€
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   GLIB.C                                                              ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Global Timbre Librarian                                             ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Usage: GLIB catfile                                                 ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Creates standard Audio Interface Library instrument bankfiles which ‚ñà‚ñà
+//‚ñà‚ñà   contain instruments assigned to the Patch Bank Select/Patch Change  ‚ñà‚ñà
+//‚ñà‚ñà   values embedded in XMIDI data files                                 ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Version: 1.00 of 05-Oct-91 -- Initial version                       ‚ñà‚ñà
+//‚ñà‚ñà            1.01 of 03-Feb-92 -- Moved header member out of GTL_class  ‚ñà‚ñà
+//‚ñà‚ñà            1.02 of 15-Feb-92 -- Ad Lib Gold OPL3 bankfiles supported  ‚ñà‚ñà
+//‚ñà‚ñà            1.03 of 25-May-92 -- Fixed GTL_write_MTB() mem alloc bug   ‚ñà‚ñà
+//‚ñà‚ñà                                 Added #include <io.h>                 ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Project: IBM Audio Interface Library                                ‚ñà‚ñà
+//‚ñà‚ñà    Author: John Miles                                                 ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   C source compatible with Turbo C++ v1.0 or later, large model       ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   glib.obj: glib.c gen.h                                              ‚ñà‚ñà
+//‚ñà‚ñà      bcc -ml -c -v glib.c                                             ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   glib.exe: glib.obj gen.lib                                          ‚ñà‚ñà
+//‚ñà‚ñà      tlink @glib.lls                                                  ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Contents of GLIB.LLS:                                               ‚ñà‚ñà
+//‚ñà‚ñà     /c /v /x +                                                        ‚ñà‚ñà
+//‚ñà‚ñà     \bc\lib\c0l.obj +                                                 ‚ñà‚ñà
+//‚ñà‚ñà     glib, +                                                           ‚ñà‚ñà
+//‚ñà‚ñà     glib.exe, +                                                       ‚ñà‚ñà
+//‚ñà‚ñà     glib.map, +                                                       ‚ñà‚ñà
+//‚ñà‚ñà     \bc\lib\cl.lib gen.lib                                            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Copyright (C) 1991, 1992 Miles Design, Inc.                         ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà   Miles Design, Inc.                                                  ‚ñà‚ñà
+//‚ñà‚ñà   10926 Jollyville #308                                               ‚ñà‚ñà
+//‚ñà‚ñà   Austin, TX 78759                                                    ‚ñà‚ñà
+//‚ñà‚ñà   (512) 345-2642 / FAX (512) 338-9630 / BBS (512) 454-9990            ‚ñà‚ñà
+//‚ñà‚ñà                                                                       ‚ñà‚ñà
+//‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà‚ñà
 
 #include <string.h>
 #include <ctype.h>
@@ -1167,4 +1167,3 @@ void main(int argc, char *argv[])
 
    exit(0);
 }
-
